@@ -39,7 +39,10 @@ route = function() {
         }
         params[key.name] = val;
       }
-      return r.cb(params);
+      return r.cb({
+        url: pattern,
+        params: params
+      });
     }
     throw new Error('no route found');
   };

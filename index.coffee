@@ -23,7 +23,9 @@ route = ->
         val = decodeURIComponent result[i + 1].replace /\+/g, ' '
         continue if !val? and not hasOwnProperty.call params, key.name
         params[key.name] = val
-      return r.cb params
+      return r.cb
+        url: pattern
+        params: params
     throw new Error 'no route found'
   res.routes -> _routes
   res

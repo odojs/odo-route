@@ -38,8 +38,7 @@ route = function() {
         }
         params[key.name] = val;
       }
-      r.cb(params);
-      return;
+      return r.cb(params);
     }
     throw new Error('no route found');
   };

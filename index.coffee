@@ -22,8 +22,7 @@ route = ->
         val = decodeURIComponent result[i + 1].replace /\+/g, ' '
         continue if !val? and not hasOwnProperty.call params, key.name
         params[key.name] = val
-      r.cb params
-      return
+      return r.cb params
     throw new Error 'no route found'
 
 # users can choose to have a global route or create a scoped route

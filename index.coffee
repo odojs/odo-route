@@ -2,11 +2,12 @@ pathtoregexp = require 'path-to-regexp'
 
 route = ->
   _routes = []
-  (pattern, callback, options) ->
+  res = (pattern, callback, options) ->
     if callback?
       # registration route(pattern, callback, options)
       pattern = '(.*)' if pattern is '*'
       _routes.push
+        pattern: pattern
         match: pathtoregexp pattern, options
         cb: callback
       return
@@ -24,6 +25,8 @@ route = ->
         params[key.name] = val
       return r.cb params
     throw new Error 'no route found'
+  res.routes -> _routes
+  res
 
 # users can choose to have a global route or create a scoped route
 globalroute = null

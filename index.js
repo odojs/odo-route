@@ -4,15 +4,16 @@ var globalroute, pathtoregexp, route;
 pathtoregexp = require('path-to-regexp');
 
 route = function() {
-  var _routes;
+  var _routes, res;
   _routes = [];
-  return function(pattern, callback, options) {
+  res = function(pattern, callback, options) {
     var i, j, k, key, len, len1, params, qindex, r, ref, result, val;
     if (callback != null) {
       if (pattern === '*') {
         pattern = '(.*)';
       }
       _routes.push({
+        pattern: pattern,
         match: pathtoregexp(pattern, options),
         cb: callback
       });
@@ -42,6 +43,10 @@ route = function() {
     }
     throw new Error('no route found');
   };
+  res.routes(function() {
+    return _routes;
+  });
+  return res;
 };
 
 globalroute = null;

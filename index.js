@@ -56,4 +56,9 @@ globalapi.routes = () => {
   return globalroute.routes()
 }
 
+globalapi.clearAll = () => {
+  if (globalroute == null) globalroute = route()
+  globalroute.clearAll()
+}
+
 module.exports = globalapi

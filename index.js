@@ -1,7 +1,7 @@
 const pathtoregexp = require('path-to-regexp')
 
 const route = () => {
-  const _routes = []
+  let _routes = []
   const res = (pattern, callback, options) => {
     if (callback != null) {
       if (pattern === '*') pattern = '(.*)'
@@ -37,6 +37,9 @@ const route = () => {
     throw new Error('no route found')
   }
   res.routes = () => _routes
+  res.clearAll = () => {
+    _routes = []
+  }
   return res
 }
 

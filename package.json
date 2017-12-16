@@ -1,6 +1,6 @@
 {
   "name": "odo-route",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Route url patterns to functions",
   "main": "index.js",
   "scripts": {

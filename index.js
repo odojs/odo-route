@@ -10,12 +10,17 @@ const route = () => {
   let routes = []
   const res = (pattern, callback, options) => {
     if (pattern === '*') pattern = '(.*)'
+    let index = 0
+    if (options != null && options.index != null)
+      index = options.index
     const entry = {
       pattern: pattern,
+      index: index,
       match: pathtoregexp(pattern, options),
       cb: callback
     }
     routes.push(entry)
+    routes.sort((a, b) => b.index - a.index)
     return {
       off: () => {
         const index = routes.indexOf(entry)
@@ -57,16 +62,11 @@ const route = () => {
   return res
 }
 
-let _route = null
-const assert = () => {
-  if (_route == null) _route = route()
-  return _route
-}
-
+const _route = route()
 module.exports = (pattern, callback, options) => {
   if (pattern == null) return route()
-  return assert()(pattern, callback, options)
+  return _route(pattern, callback, options)
 }
-module.exports.exec = (url, next) => assert().exec(url, next)
-module.exports.routes = () => assert().routes()
-module.exports.clearAll = () => assert().clearAll()
+module.exports.exec = (url, next) => _route.exec(url, next)
+module.exports.routes = () => _route.routes()
+module.exports.clearAll = () => _route.clearAll()

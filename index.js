@@ -3,16 +3,14 @@ const pathtoregexp = require('path-to-regexp')
 const hostname = window.location.hostname
 const hostnameparts = hostname.split('.')
 let subdomain = null
-if (hostnameparts.length == 3)
-  subdomain = hostnameparts[0]
+if (hostnameparts.length == 3) subdomain = hostnameparts[0]
 
 const route = () => {
   let routes = []
   const res = (pattern, callback, options) => {
     if (pattern === '*') pattern = '(.*)'
     let index = 0
-    if (options != null && options.index != null)
-      index = options.index
+    if (options != null && options.index != null) index = options.index
     const entry = {
       pattern: pattern,
       index: index,
@@ -36,7 +34,7 @@ const route = () => {
       url = url.slice(0, qindex)
     }
     for (let r of routes) {
-      const result = r.match.exec(decodeURIComponent(url))
+      const result = r.match.exec(url)
       if (result == null) continue
       const params = {}
       r.match.keys.forEach((key, i) => {
